@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Text, View, ScrollView, FlatList } from "react-native";
 import { Card, Icon } from "react-native-elements";
-import { connect } from "react-redux";
-import { baseUrl } from "../shared/baseUrl";
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
 
 const mapStateToProps = state => {
-  return {
-      campsites: state.campsites,
-      comments: state.comments
-  };
+    return {
+        campsites: state.campsites,
+        comments: state.comments
+    };
 };
 
 function RenderCampsite(props) {
@@ -19,7 +19,7 @@ function RenderCampsite(props) {
       <Card
         featuredTitle={campsite.name}
         image={{uri: baseUrl + campsite.image}}>
-      >
+      
         <Text style={{ margin: 10 }}>{campsite.description}</Text>
         <Icon
           name={props.favorite ? "heart" : "heart-o"}
