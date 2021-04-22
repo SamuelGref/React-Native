@@ -123,7 +123,7 @@ class Reservation extends Component {
                             color='#5637DD'
                             title='Close'
                         />
-                    </View>
+                    </View> 
                 </Modal>
 
             </ScrollView>
