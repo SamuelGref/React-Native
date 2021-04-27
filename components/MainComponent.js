@@ -14,6 +14,7 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import Login from './LoginComponent';
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import { createAppContainer } from "react-navigation";
@@ -26,6 +27,7 @@ import {
   fetchPromotions,
   fetchPartners,
 } from "../redux/ActionCreators";
+
 
 const mapDispatchToProps = {
   fetchCampsites,
@@ -187,8 +189,30 @@ const HomeNavigator = createStackNavigator(
     }),
   }
 );
+const LoginNavigator = createStackNavigator(
+  {
+      Login: { screen: Login }
+  },
+  {
+      defaultNavigationOptions: ({navigation}) => ({
+          headerStyle: {
+              backgroundColor: '#5637DD'
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+              color: '#fff'
+          },
+          headerLeft: <Icon
+              name='sign-in'
+              type='font-awesome'
+              iconStyle={styles.stackIcon}
+              onPress={() => navigation.toggleDrawer()}
+          />
+      })
+  }
+);
 
-const CustomDrawerContentComponent = (props) => (
+const CustomDrawerContentComponent = props => (
   <ScrollView>
     <SafeAreaView
       style={styles.container}
@@ -212,7 +236,20 @@ const CustomDrawerContentComponent = (props) => (
 
 const MainNavigator = createDrawerNavigator(
   {
-    Home: {
+      Login: {
+          screen: LoginNavigator,
+          navigationOptions: {
+              drawerIcon: ({tintColor}) => (
+                  <Icon
+                      name='sign-in'
+                      type='font-awesome'
+                      size={24}
+                      color={tintColor}
+                  />
+              )
+          }
+      },
+  Home: {
       screen: HomeNavigator,
       navigationOptions: {
         drawerIcon: ({ tintColor }) => (
@@ -276,8 +313,9 @@ const MainNavigator = createDrawerNavigator(
     },
   },
   {
-    drawerBackgroundColor: "#CEC8FF",
-    contentComponent: CustomDrawerContentComponent,
+      initialRouteName: 'Home',
+      drawerBackgroundColor: '#CEC8FF',
+      contentComponent: CustomDrawerContentComponent
   }
 );
 const AppNavigator = createAppContainer(MainNavigator);
